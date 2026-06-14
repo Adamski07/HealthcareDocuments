@@ -9,4 +9,8 @@ public interface IReferralRepository
     Task<IReadOnlyList<Referral>> GetAllAsync();
 
     Task<Referral?> GetByIdAsync(Guid id);
+
+    Task<Document> AddDocumentAsync(Document document);
+
+    Task<IReadOnlyList<Document>> GetDocumentsByReferralIdAsync(Guid referralId);
 }

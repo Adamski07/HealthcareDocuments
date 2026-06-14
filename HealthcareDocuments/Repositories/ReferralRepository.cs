@@ -34,4 +34,20 @@ public class ReferralRepository : IReferralRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(referral => referral.Id == id);
     }
+
+    public async Task<Document> AddDocumentAsync(Document document)
+    {
+        _context.Documents.Add(document);
+        await _context.SaveChangesAsync();
+
+        return document;
+    }
+
+    public async Task<IReadOnlyList<Document>> GetDocumentsByReferralIdAsync(Guid referralId)
+    {
+        return await _context.Documents
+            .AsNoTracking()
+            .Where(document => document.ReferralId == referralId)
+            .ToListAsync();
+    }
 }

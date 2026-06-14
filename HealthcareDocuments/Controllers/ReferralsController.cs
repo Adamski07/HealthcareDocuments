@@ -1,3 +1,4 @@
+using HealthcareDocuments.Dtos.Documents;
 using HealthcareDocuments.Dtos.Referrals;
 using HealthcareDocuments.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -42,5 +43,33 @@ public class ReferralsController : ControllerBase
         }
 
         return Ok(referral);
+    }
+
+    [HttpPost("{referralId:guid}/documents")]
+    public async Task<ActionResult<DocumentResponseDto>> AddDocument(
+        Guid referralId,
+        CreateDocumentDto request)
+    {
+        var document = await _referralService.AddDocumentToReferralAsync(referralId, request);
+
+        if (document is null)
+        {
+            return NotFound();
+        }
+
+        return CreatedAtAction(nameof(GetDocuments), new { referralId }, document);
+    }
+
+    [HttpGet("{referralId:guid}/documents")]
+    public async Task<ActionResult<IEnumerable<DocumentResponseDto>>> GetDocuments(Guid referralId)
+    {
+        var documents = await _referralService.GetDocumentsByReferralIdAsync(referralId);
+
+        if (documents is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(documents);
     }
 }
