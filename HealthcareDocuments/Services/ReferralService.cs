@@ -8,10 +8,14 @@ namespace HealthcareDocuments.Services;
 public class ReferralService : IReferralService
 {
     private readonly IReferralRepository _referralRepository;
+    private readonly IExchangeLogService _exchangeLogService;
 
-    public ReferralService(IReferralRepository referralRepository)
+    public ReferralService(
+        IReferralRepository referralRepository,
+        IExchangeLogService exchangeLogService)
     {
         _referralRepository = referralRepository;
+        _exchangeLogService = exchangeLogService;
     }
 
     public async Task<ReferralResponseDto> CreateAsync(CreateReferralRequestDto request)
@@ -65,6 +69,9 @@ public class ReferralService : IReferralService
         };
 
         var createdDocument = await _referralRepository.AddDocumentAsync(document);
+        var action = $"{referral.FromOrganization} shared {createdDocument.Type} with {referral.ToOrganization}.";
+
+        await _exchangeLogService.AddAsync(referralId, action);
 
         return ToDocumentResponse(createdDocument);
     }

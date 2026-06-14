@@ -15,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IReferralRepository, ReferralRepository>();
 builder.Services.AddScoped<IReferralService, ReferralService>();
+builder.Services.AddScoped<IExchangeLogRepository, ExchangeLogRepository>();
+builder.Services.AddScoped<IExchangeLogService, ExchangeLogService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
