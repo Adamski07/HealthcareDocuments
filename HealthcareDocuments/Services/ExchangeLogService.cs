@@ -7,14 +7,10 @@ namespace HealthcareDocuments.Services;
 public class ExchangeLogService : IExchangeLogService
 {
     private readonly IExchangeLogRepository _exchangeLogRepository;
-    private readonly ILogger<ExchangeLogService> _logger;
 
-    public ExchangeLogService(
-        IExchangeLogRepository exchangeLogRepository,
-        ILogger<ExchangeLogService> logger)
+    public ExchangeLogService(IExchangeLogRepository exchangeLogRepository)
     {
         _exchangeLogRepository = exchangeLogRepository;
-        _logger = logger;
     }
 
     public async Task<List<ExchangeLogResponseDto>> GetAllAsync()
@@ -36,8 +32,6 @@ public class ExchangeLogService : IExchangeLogService
 
         await _exchangeLogRepository.AddAsync(exchangeLog);
         await _exchangeLogRepository.SaveChangesAsync();
-
-        _logger.LogInformation("Exchange log created for referral {ReferralId}: {Action}", referralId, action);
     }
 
     private static ExchangeLogResponseDto ToResponse(ExchangeLog exchangeLog)

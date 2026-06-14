@@ -58,18 +58,18 @@ Zet daarna de connection string (Vervang `JouwSterkeWachtwoordHier` met je daadw
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=HealthcareDocuments;User Id=sa;Password=JouwSterkeWachtwoordHier;TrustServerCertificate=True;Encrypt=True" --project HealthcareDocuments
 ```
 
-## Applicatie starten
-
-Vanaf de root van de repository:
-
-```powershell
-dotnet run --project HealthcareDocuments
-```
-
 ## Entity Framework Core
 
 Werk de database bij:
 
 ```powershell
 dotnet ef database update --project HealthcareDocuments
+```
+
+## Applicatie starten
+
+Vanaf de root van de repository:
+
+```powershell
+dotnet run --project HealthcareDocuments
 ```
