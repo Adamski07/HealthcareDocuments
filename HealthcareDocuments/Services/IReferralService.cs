@@ -14,4 +14,6 @@ public interface IReferralService
     Task<DocumentResponseDto?> AddDocumentToReferralAsync(Guid referralId, CreateDocumentDto request);
 
     Task<IReadOnlyList<DocumentResponseDto>?> GetDocumentsByReferralIdAsync(Guid referralId);
+
+    Task<bool> RequestMedicationInformationAsync(Guid referralId);
 }

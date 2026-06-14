@@ -9,13 +9,16 @@ public class ReferralService : IReferralService
 {
     private readonly IReferralRepository _referralRepository;
     private readonly IExchangeLogService _exchangeLogService;
+    private readonly ILogger<ReferralService> _logger;
 
     public ReferralService(
         IReferralRepository referralRepository,
-        IExchangeLogService exchangeLogService)
+        IExchangeLogService exchangeLogService,
+        ILogger<ReferralService> logger)
     {
         _referralRepository = referralRepository;
         _exchangeLogService = exchangeLogService;
+        _logger = logger;
     }
 
     public async Task<ReferralResponseDto> CreateAsync(CreateReferralRequestDto request)
@@ -88,6 +91,27 @@ public class ReferralService : IReferralService
         var documents = await _referralRepository.GetDocumentsByReferralIdAsync(referralId);
 
         return documents.Select(ToDocumentResponse).ToList();
+    }
+
+    public async Task<bool> RequestMedicationInformationAsync(Guid referralId)
+    {
+        var referral = await _referralRepository.GetByIdAsync(referralId);
+
+        if (referral is null)
+        {
+            return false;
+        }
+
+        var action = $"{referral.ToOrganization} requested MedicationInformation from {referral.FromOrganization}.";
+
+        await _exchangeLogService.AddAsync(referralId, action);
+
+        _logger.LogInformation(
+            "Medication information requested for referral {ReferralId} by {ToOrganization}",
+            referralId,
+            referral.ToOrganization);
+
+        return true;
     }
 
     private static ReferralResponseDto ToResponse(Referral referral)

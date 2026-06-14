@@ -72,4 +72,17 @@ public class ReferralsController : ControllerBase
 
         return Ok(documents);
     }
+
+    [HttpPost("{referralId:guid}/medication-request")]
+    public async Task<IActionResult> RequestMedicationInformation(Guid referralId)
+    {
+        var requestLogged = await _referralService.RequestMedicationInformationAsync(referralId);
+
+        if (!requestLogged)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }
