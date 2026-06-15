@@ -31,7 +31,6 @@ public class ExchangeLogService : IExchangeLogService
         };
 
         await _exchangeLogRepository.AddAsync(exchangeLog);
-        await _exchangeLogRepository.SaveChangesAsync();
     }
 
     private static ExchangeLogResponseDto ToResponse(ExchangeLog exchangeLog)

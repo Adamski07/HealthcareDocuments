@@ -23,10 +23,7 @@ public class ExchangeLogRepository : IExchangeLogRepository
     public async Task AddAsync(ExchangeLog exchangeLog)
     {
         await _context.ExchangeLogs.AddAsync(exchangeLog);
-    }
-
-    public async Task SaveChangesAsync()
-    {
         await _context.SaveChangesAsync();
+
     }
 }
