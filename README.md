@@ -7,12 +7,6 @@ Simpele ASP.NET Core applicatie met Entity Framework Core en SQL Server.
 - Docker Desktop
 - .NET SDK 10
 
-Controleer je .NET versie met:
-
-```powershell
-dotnet --version
-```
-
 ## Database
 
 De SQL Server database draait via Docker Compose.
@@ -73,3 +67,7 @@ Vanaf de root van de repository:
 ```powershell
 dotnet run --project HealthcareDocuments
 ```
+
+## Documentatie
+
+Zie [Documentation.md](Documentation.md) voor de ontwerpkeuzes, endpoints en werking van de API.
