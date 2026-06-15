@@ -6,6 +6,7 @@ namespace HealthcareDocuments.Dtos.Documents;
 public class CreateDocumentDto
 {
     [Required]
+    [EnumDataType(typeof(DocumentType), ErrorMessage = "Document type must be one of: ReferralLetter, AllergyInformation, MedicationInformation.")]
     public DocumentType? Type { get; set; }
 
     [Required]
