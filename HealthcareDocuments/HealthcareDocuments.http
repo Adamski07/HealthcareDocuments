@@ -1,6 +1,0 @@
-@HealthcareDocuments_HostAddress = http://localhost:5118
-
-GET {{HealthcareDocuments_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
